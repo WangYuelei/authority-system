@@ -29,7 +29,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 注入加密处理类
      *
-     * @return
      */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -72,7 +71,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 配置认证处理器
      * @param auth the {@link AuthenticationManagerBuilder} to use
-     * @throws Exception
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
