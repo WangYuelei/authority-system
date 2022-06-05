@@ -2,6 +2,7 @@ package com.wyl.config.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.wyl.config.redis.RedisService;
 import com.wyl.entity.User;
 import com.wyl.utils.JwtUtils;
 import com.wyl.utils.LoginResult;
@@ -27,6 +28,9 @@ import java.nio.charset.StandardCharsets;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Resource
     private JwtUtils jwtUtils;
+    @Resource
+    private RedisService redisService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         AuthenticationSuccessHandler.super.onAuthenticationSuccess(request, response, chain, authentication);
@@ -50,13 +54,16 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 //获取token过期时间
                 .getBody().getExpiration().getTime();
         //创建登录结果对象
-        LoginResult loginResult = new LoginResult(user.getId(), ResultCode.SUCCESS,token,expireTime);
+        LoginResult loginResult = new LoginResult(user.getId(), ResultCode.SUCCESS, token, expireTime);
         //消除循环引用
-        String result = JSON.toJSONString(loginResult,SerializerFeature.DisableCircularReferenceDetect);
+        String result = JSON.toJSONString(loginResult, SerializerFeature.DisableCircularReferenceDetect);
         //获取输出流
         ServletOutputStream outputStream = response.getOutputStream();
         outputStream.write(result.getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();
+        //将token信息保存到redis中
+        String tokenKey = "token_" + token;
+        redisService.set(tokenKey, token, jwtUtils.getExpiration() / 1000);
     }
 }

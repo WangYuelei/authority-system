@@ -1,6 +1,7 @@
 package com.wyl.config.security.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.wyl.config.security.exception.CustomerAuthenticationException;
 import com.wyl.utils.Result;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -26,23 +27,26 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         //获取输出流
         ServletOutputStream outputStream = response.getOutputStream();
         //提示信息
-        String message=null;
+        String message = null;
         //错误编码
-        int code=500;
+        int code = 500;
         //判断异常类型
-        if (exception instanceof AccountExpiredException){
-            message="账户过期,登录失败";
-        }else if (exception instanceof BadCredentialsException) {
+        if (exception instanceof AccountExpiredException) {
+            message = "账户过期,登录失败";
+        } else if (exception instanceof BadCredentialsException) {
             message = "用户名或密码错误,登录失败";
-        }else if (exception instanceof CredentialsExpiredException) {
+        } else if (exception instanceof CredentialsExpiredException) {
             message = "密码过期,登录失败";
-        }else if (exception instanceof DisabledException) {
+        } else if (exception instanceof DisabledException) {
             message = "账户被禁用,登录失败";
-        }else if (exception instanceof LockedException) {
-            message="账户被禁用,登录失败";
-        }else if (exception instanceof InternalAuthenticationServiceException) {
-            message="账户不存在,登录失败";
-        }else {
+        } else if (exception instanceof LockedException) {
+            message = "账户被禁用,登录失败";
+        } else if (exception instanceof InternalAuthenticationServiceException) {
+            message = "账户不存在,登录失败";
+        } else if (exception instanceof CustomerAuthenticationException) {
+            message = exception.getMessage();
+            code = 600;
+        } else {
             message = "登录失败";
         }
         //将错误信息转换成JSON

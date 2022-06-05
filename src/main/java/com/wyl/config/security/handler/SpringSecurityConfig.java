@@ -1,5 +1,6 @@
 package com.wyl.config.security.handler;
 
+import com.wyl.config.security.filter.CheckTokenFilter;
 import com.wyl.config.security.service.CustomerUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,10 +27,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private AnonymousAuthenticationHandler anonymousAuthenticationHandler;
     @Resource
     private CustomerAccessDeniedHandler customerAccessDeniedHandler;
+    @Resource
+    private CheckTokenFilter checkTokenFilter;
 
     /**
      * 注入加密处理类
-     *
      */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -37,6 +40,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //登录前进行过滤
+        http.addFilterBefore(checkTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //登录前进行过滤
         http.formLogin().loginProcessingUrl("/api/user/login")
                 //设置登录验证成功或失败后的跳转地址
@@ -70,6 +75,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 配置认证处理器
+     *
      * @param auth the {@link AuthenticationManagerBuilder} to use
      */
     @Override
