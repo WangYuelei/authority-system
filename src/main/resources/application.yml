@@ -27,4 +27,8 @@ mybatis-plus:
 logging:
   level:
     com.wyl.dao: debug
+#jwt设置
+jwt:
+  secret: com.wyl
+  expiration: 1800000
 

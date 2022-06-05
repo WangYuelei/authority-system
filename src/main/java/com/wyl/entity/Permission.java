@@ -1,12 +1,16 @@
 package com.wyl.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @TableName("sys_permission")
@@ -17,7 +21,7 @@ public class Permission implements Serializable {
     /**
      * 权限编号
      */
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -89,6 +93,22 @@ public class Permission implements Serializable {
      * 是否删除(0-未删除，1-已删除)
      */
     private Integer isDelete;
-
-
+    /**
+     * 子菜单列表
+     */
+    //因为表中不存在此字段,所以进行排除
+    @TableField(exist = false)
+    //属性值为null的不进行序列化操作
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Permission> children = new ArrayList<Permission>();
+    /**
+     * 用于在前端判断当前是目录,菜单还是按钮
+     */
+    @TableField(exist = false)
+    private String value;
+    /**
+     * 是否展开
+     */
+    @TableField(exist = false)
+    private Boolean open;
 }
