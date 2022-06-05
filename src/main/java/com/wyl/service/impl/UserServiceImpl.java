@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     /**
      * 根据用户名查询用户信息
+     *
      * @param userName
      * @return
      */
@@ -20,7 +21,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User findUserByUserName(String userName) {
         //创建条件构造器对象
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username",userName);
+        queryWrapper.eq("username", userName);
         //执行查询
         return baseMapper.selectOne(queryWrapper);
 

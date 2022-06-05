@@ -71,7 +71,7 @@ public class MenuTree {
         List<Permission> permissionList = new ArrayList<>();
         //判断菜单列表是否为空,如果不为空则使用菜单列表,否则创建集合对象
         Optional.ofNullable(menuList).orElse(new ArrayList<>())
-                .stream().filter(item -> item != null && Objects.equals(item.getParentId(),pid))
+                .stream().filter(item -> item != null && Objects.equals(item.getParentId(), pid))
                 .forEach(item -> {
                     //创建权限菜单对象
                     Permission permission = new Permission();

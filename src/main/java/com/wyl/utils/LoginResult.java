@@ -8,12 +8,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginResult {
-    //用户编号
+    /**
+     * 用户编号
+     */
     private Long id;
-    //状态码啊
+    /**
+     * 状态码
+     */
     private int code;
-    //token令牌
+    /**
+     * token令牌
+     */
     private String token;
-    //token过期时间
+    /**
+     * token过期时间
+     */
     private Long expireTime;
 }

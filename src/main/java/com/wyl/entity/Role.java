@@ -17,7 +17,7 @@ public class Role implements Serializable {
     /**
      * 角色编号
      */
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

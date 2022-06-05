@@ -16,7 +16,7 @@ public class Department implements Serializable {
     /**
      * 部门编号
      */
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

@@ -22,7 +22,7 @@ public class User implements Serializable, UserDetails {
     /**
      * 用户编号
      */
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -38,22 +38,22 @@ public class User implements Serializable, UserDetails {
     /**
      * 帐户是否过期(1-未过期，0-已过期)
      */
-    private boolean isAccountNonExpired=true;
+    private boolean isAccountNonExpired = true;
 
     /**
      * 帐户是否被锁定(1-未过期，0-已过期)
      */
-    private boolean isAccountNonLocked=true;
+    private boolean isAccountNonLocked = true;
 
     /**
      * 密码是否过期(1-未过期，0-已过期)
      */
-    private boolean isCredentialsNonExpired=true;
+    private boolean isCredentialsNonExpired = true;
 
     /**
      * 帐户是否可用(1-可用，0-禁用)
      */
-    private boolean isEnabled=true;
+    private boolean isEnabled = true;
 
     /**
      * 真实姓名

@@ -8,8 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TokenVo {
-    //过期时间
+    /**
+     * 过期时间
+     */
     private Long expireTime;
-    //token
+    /**
+     * token
+     */
     private String token;
 }

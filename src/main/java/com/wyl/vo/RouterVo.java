@@ -47,10 +47,9 @@ public class RouterVo {
          */
         private Object[] roles;
     }
-    //
 
     /**
      * 子路由
      */
-    private List<RouterVo> children =new ArrayList<RouterVo>();
+    private List<RouterVo> children = new ArrayList<RouterVo>();
 }
