@@ -1,11 +1,14 @@
 package com.wyl.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @TableName("sys_department")
@@ -54,5 +57,9 @@ public class Department implements Serializable {
      */
     private Integer isDelete;
 
-
+    /**
+     * 子部门
+     */
+    @TableField(exist = false)
+    private List<Department> children=new ArrayList<Department>();
 }
