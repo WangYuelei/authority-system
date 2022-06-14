@@ -57,8 +57,10 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         department.setDepartmentName("顶级部门");
         department.setPid(-1L);
         departmentList.add(department);
+        //生成部门树列表
+        List<Department> departmentTree = DepartmentTree.makeDepartmentTree(departmentList, -1L);
         //返回部门列表
-        return departmentList;
+        return departmentTree;
     }
 
     @Override
