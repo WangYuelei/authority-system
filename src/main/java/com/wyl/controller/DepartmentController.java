@@ -40,7 +40,6 @@ public class DepartmentController {
         //返回数据
         return Result.ok(departmentList);
     }
-
     /**
      * 添加部门
      * @param department
