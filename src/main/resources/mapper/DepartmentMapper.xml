@@ -16,8 +16,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
-        , department_name, phone, address, pid, parent_name, order_num, is_delete
+        id, department_name, phone, address, pid, parent_name, order_num, is_delete
     </sql>
+    <select id="selectListV1" resultType="com.wyl.entity.Department">
+        SELECT d.id,
+               d.department_name as departmentName,
+               d.phone,
+               d.address,
+               d.pid,
+               d1.department_name as parentName,
+               d.order_num as orderNum,
+               d.is_delete as isDelete
+        FROM sys_department d left join sys_department d1 on d.pid=d1.id
+        <if test="departmentName !=null ">
+        where d.department_name like concat('%',#{departmentName,jdbcType=VARCHAR},'%')
+        </if>
+        ORDER BY #{orderBy} ASC
+    </select>
 
 </mapper>

@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public class DepartmentTree {
     /**
-     * 生成部门书列表
+     * 生成部门树列表
      * @param deps 部门列表
      * @param pid 父级部门id
      * @return

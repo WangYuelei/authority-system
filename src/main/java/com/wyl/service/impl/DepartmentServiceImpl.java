@@ -11,11 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
+    @Resource
+    private DepartmentMapper departmentMapper;
     /**
      * 查询部门列表
      *
@@ -30,8 +35,14 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         queryWrapper.like(!ObjectUtils.isEmpty(departmentQueryVo.getDepartmentName()), "department_name",departmentQueryVo.getDepartmentName());
         //排序
         queryWrapper.orderByAsc("order_num");
+        Map<Object, Object> params = new HashMap<>();
+        params.put("orderBy","order_num");
+        if (!ObjectUtils.isEmpty(departmentQueryVo.getDepartmentName())){
+            params.put("departmentName",departmentQueryVo.getDepartmentName());
+        }
         //查询部门列表
-        List<Department> departmentList = baseMapper.selectList(queryWrapper);
+        List<Department> departmentList = departmentMapper.selectListV1(params);
+        // List<Department> departmentList = baseMapper.selectList(queryWrapper);
         //生成部门树
         List<Department> departments = DepartmentTree.makeDepartmentTree(departmentList, 0L);
         return departments;
@@ -49,8 +60,11 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
         QueryWrapper<Department> queryWrapper = new QueryWrapper<>();
         //排序
         queryWrapper.orderByAsc("order_num");
+        Map<Object, Object> params = new HashMap<>();
+        params.put("orderBy","order_num");
         //查询部门列表
-        List<Department> departmentList = baseMapper.selectList(queryWrapper);
+        List<Department> departmentList = departmentMapper.selectListV1(params);
+        // List<Department> departmentList = baseMapper.selectList(queryWrapper);
         //创建部门对象
         Department department = new Department();
         department.setId(0L);
