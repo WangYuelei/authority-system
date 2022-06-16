@@ -21,4 +21,17 @@ public interface DepartmentService extends IService<Department> {
     List<Department> findParentDepartment();
 
     boolean check(Long id);
+
+    /**
+     * 判断部门下是否有子部门
+     * @param id
+     * @return
+     */
+    boolean hasChildrenOfDepartment(Long id);
+    /**
+     * 判断部门下是否有用户
+     * @param id
+     * @return
+     */
+    boolean hasUserOfDepartment(Long id);
 }
