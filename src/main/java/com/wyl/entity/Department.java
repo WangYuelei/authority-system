@@ -58,6 +58,11 @@ public class Department implements Serializable {
     private Integer isDelete;
 
     /**
+     * 是否展开
+     */
+    @TableField(exist = false)
+    private Boolean open;
+    /**
      * 子部门
      */
     @TableField(exist = false)
