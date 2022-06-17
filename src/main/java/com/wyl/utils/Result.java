@@ -100,9 +100,11 @@ public class Result<T> {
      */
     public static <T> Result<T> exist() {
         Result<T> result = new Result<T>();
-        result.setSuccess(true);
+        //存在该数据
+        result.setSuccess(false);
+        //执行成功但存在该数据(由于vue-admin模板在响应时验证状态码是否是200,如果不是,则报错)
         result.setCode(ResultCode.SUCCESS);
-        result.setMessage("执行成功");
+        result.setMessage("该数据存在");
         return result;
     }
 }
