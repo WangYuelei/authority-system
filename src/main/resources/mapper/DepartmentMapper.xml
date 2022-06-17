@@ -18,7 +18,7 @@
     <sql id="Base_Column_List">
         id, department_name, phone, address, pid, parent_name, order_num, is_delete
     </sql>
-    <select id="selectListV1" resultType="com.wyl.entity.Department">
+    <select id="selectList" resultType="com.wyl.entity.Department">
         SELECT d.id,
                d.department_name as departmentName,
                d.phone,

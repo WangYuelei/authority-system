@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface DepartmentMapper extends BaseMapper<Department> {
 
-    List<Department> selectListV1(Map params);
+    List<Department> selectList(Map params);
 }

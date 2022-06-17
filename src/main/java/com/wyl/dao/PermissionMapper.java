@@ -1,9 +1,10 @@
 package com.wyl.dao;
 
-import com.wyl.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wyl.entity.Permission;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PermissionMapper extends BaseMapper<Permission> {
     /**
@@ -13,4 +14,6 @@ public interface PermissionMapper extends BaseMapper<Permission> {
      * @return
      */
     List<Permission> findPermissionByUserId(Long userId);
+
+    List<Permission> findPermissionList(Map permissionQueryVo);
 }

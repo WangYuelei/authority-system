@@ -45,5 +45,28 @@
         where u.id = #{userId}
         ORDER BY p.id ASC
     </select>
+    <select id="findPermissionList" resultType="com.wyl.entity.Permission">
+        select p.id,
+               p.parent_id,
+               p1.label as parent_name,
+               p.label,
+               p.`code`,
+               p.url,
+               p.type,
+               p.icon,
+               p.remark,
+               p.path,
+               p.name,
+               p.order_num
+        from sys_permission p
+                 left join sys_permission p1 on p.parent_id = p1.id
+        <if test="type !=null ">
+            where p.type in
+            <foreach collection="array" item="type" index="index" open="(" close=")" separator=",">
+                #{type}
+            </foreach>
+        </if>
+        order by #{orderBy} asc
+    </select>
 
 </mapper>
