@@ -31,19 +31,23 @@ public class PermissionController {
         //返回数据
         return Result.ok(permissionList);
     }
+
     /**
      * 查询上级菜单列表
+     *
      * @return
      */
     @GetMapping("/parent/list")
-    public Result getParentList(){
+    public Result getParentList() {
         //查询上级菜单列表
         List<Permission> permissionList = permissionService.findParentPermissionList();
         //返回数据
         return Result.ok(permissionList);
     }
+
     /**
      * 根据id查询菜单信息
+     *
      * @param id
      * @return
      */
