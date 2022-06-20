@@ -5,10 +5,7 @@ import com.wyl.entity.Permission;
 import com.wyl.service.PermissionService;
 import com.wyl.utils.Result;
 import com.wyl.vo.query.PermissionQueryVo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -54,6 +51,63 @@ public class PermissionController {
     @GetMapping("/{id}")
     public Result getMenuById(@PathVariable("id") Long id) {
         return Result.ok(permissionService.getById(id));
+    }
+
+    /**
+     * 添加菜单
+     *
+     * @param permission
+     * @return
+     */
+    @PostMapping("/add")
+    public Result add(@RequestBody Permission permission) {
+        if (permissionService.save(permission)) {
+            return Result.ok().message("菜单添加成功");
+        }
+        return Result.error().message("菜单添加失败");
+    }
+
+    /**
+     * 修改菜单
+     *
+     * @param permission
+     * @return
+     */
+    @PutMapping("/update")
+    public Result update(@RequestBody Permission permission) {
+        if (permissionService.updateById(permission)) {
+            return Result.ok().message("菜单修改成功");
+        }
+        return Result.error().message("菜单修改失败");
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    public Result delete(@PathVariable Long id) {
+        if (permissionService.removeById(id)) {
+            return Result.ok().message("菜单删除成功");
+        }
+        return Result.error().message("菜单删除失败");
+    }
+
+    /**
+     * 检查菜单下是否有子菜单
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/check/{id}")
+    public Result check(@PathVariable Long id) {
+        //判断菜单是否有子菜单
+        if (permissionService.hasChildrenOfPermission(id)) {
+            return Result.exist().message("该菜单下有子菜单，无法删除");
+        }
+        return Result.ok();
     }
 }
 
