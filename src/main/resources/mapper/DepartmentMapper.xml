@@ -28,8 +28,9 @@
                d.order_num as orderNum,
                d.is_delete as isDelete
         FROM sys_department d left join sys_department d1 on d.pid=d1.id
+        where d.is_delete=0
         <if test="departmentName !=null ">
-        where d.department_name like concat('%',#{departmentName,jdbcType=VARCHAR},'%')
+        and d.department_name like concat('%',#{departmentName,jdbcType=VARCHAR},'%')
         </if>
         ORDER BY #{orderBy} ASC
     </select>

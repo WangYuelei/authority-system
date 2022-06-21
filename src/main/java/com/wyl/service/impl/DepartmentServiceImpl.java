@@ -33,22 +33,14 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
      */
     @Override
     public List<Department> findDepartmentList(DepartmentQueryVo departmentQueryVo) {
-        //创建条件构造器对象
-        QueryWrapper<Department> queryWrapper = new QueryWrapper<>();
-        //部门名称
-        queryWrapper.like(!ObjectUtils.isEmpty(departmentQueryVo.getDepartmentName()), "department_name",departmentQueryVo.getDepartmentName());
         //排序
-        queryWrapper.orderByAsc("order_num");
         Map<Object, Object> params = new HashMap<>();
-        params.put("orderBy","order_num");
+        params.put("orderBy","orderNum");
         if (!ObjectUtils.isEmpty(departmentQueryVo.getDepartmentName())){
             params.put("departmentName",departmentQueryVo.getDepartmentName());
         }
         //查询部门列表
         List<Department> departmentList = departmentMapper.selectList(params);
-
-        //查询部门列表
-        //List<Department> departmentList = baseMapper.selectList(queryWrapper);
         //生成部门树
         List<Department> departments = DepartmentTree.makeDepartmentTree(departmentList, 0L);
         return departments;

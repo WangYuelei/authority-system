@@ -54,7 +54,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     public List<Permission> findParentPermissionList() {
         //构建查询对象
         Map<Object, Object> params = new HashMap<>();
-        params.put("orderBy", "order_num");
+        params.put("orderBy", "orderNum");
         params.put("type", Arrays.asList(0, 1));
         //查询菜单列表
         List<Permission> permissionList = permissionMapper.findPermissionList(params);
