@@ -48,9 +48,9 @@
     <select id="findPermissionList" resultType="com.wyl.entity.Permission">
         select p.id,p.parent_id, p1.label as parent_name, p.label,p.`code`, p.url, p.type,p.icon,p.remark,p.path,p.name,p.order_num
         from sys_permission p
-                 left join sys_permission p1 on p.parent_id = p1.id
+                 left join sys_permission p1 on p.parent_id = p1.id where p.is_delete=0
         <if test="type !=null ">
-            where p.type in
+            and p.type in
             <foreach collection="type" item="item" index="index" open="(" close=")" separator=",">
                 #{item}
             </foreach>
