@@ -16,4 +16,10 @@ public interface PermissionMapper extends BaseMapper<Permission> {
     List<Permission> findPermissionByUserId(Long userId);
 
     List<Permission> findPermissionList(Map permissionQueryVo);
+    /**
+     * 根据角色ID查询权限列表
+     * @param roleId
+     * @return
+     */
+    List<Permission> findPermissionByRoleId(Long roleId);
 }

@@ -46,9 +46,10 @@
         ORDER BY p.id ASC
     </select>
     <select id="findPermissionList" resultType="com.wyl.entity.Permission">
-        select p.id,p.parent_id, p1.label as parent_name, p.label,p.`code`, p.url, p.type,p.icon,p.remark,p.path,p.name,p.order_num
+        select p.id,p.parent_id, p1.label as parent_name, p.label,p.`code`, p.url,
+        p.type,p.icon,p.remark,p.path,p.name,p.order_num
         from sys_permission p
-                 left join sys_permission p1 on p.parent_id = p1.id where p.is_delete=0
+        left join sys_permission p1 on p.parent_id = p1.id where p.is_delete=0
         <if test="type !=null ">
             and p.type in
             <foreach collection="type" item="item" index="index" open="(" close=")" separator=",">
@@ -56,6 +57,13 @@
             </foreach>
         </if>
         order by #{orderBy} asc
+    </select>
+    <select id="findPermissionByRoleId" resultType="com.wyl.entity.Permission">
+        select t1.*
+        from sys_permission t1
+                 inner join sys_role_permission t2 on t1.id
+            = t2.permission_id
+        where t2.role_id = #{roleId}
     </select>
 
 </mapper>

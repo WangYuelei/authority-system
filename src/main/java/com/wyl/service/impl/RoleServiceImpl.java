@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional
@@ -45,5 +46,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             queryWrapper.eq("create_user", roleQueryVo.getUserId());
         }
         return baseMapper.selectPage(page, queryWrapper);
+    }
+
+    /**
+     * 保存角色权限关系
+     *
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    @Override
+    public boolean saveRolePermission(Long roleId, List<Long> permissionIds) {
+        //删除该角色对应的权限信息
+        baseMapper.deleteRolePermission(roleId);
+        //保存角色权限
+        int i = baseMapper.saveRolePermission(roleId,  permissionIds);
+        return i > 0;
     }
 }

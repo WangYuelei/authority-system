@@ -2,6 +2,7 @@ package com.wyl.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.entity.Permission;
+import com.wyl.vo.RolePermissionVo;
 import com.wyl.vo.query.PermissionQueryVo;
 
 import java.util.List;
@@ -34,4 +35,11 @@ public interface PermissionService extends IService<Permission> {
      * @return
      */
      boolean hasChildrenOfPermission(Long id);
+    /**
+     * 查询分配权限树列表
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    RolePermissionVo findPermissionTree(Long userId, Long roleId);
 }
